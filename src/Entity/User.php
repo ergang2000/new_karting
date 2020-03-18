@@ -245,6 +245,25 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    public function addActiviteit(Activiteit $a)
+    {
+        if ($this->activiteiten->contains($a)) {
+
+            return;
+        }
+
+        $this->activiteiten->add($a);
+
+    }
+
+    public function removeActiviteit(Activiteit $a)
+    {
+        if (!$this->activiteiten->contains($a)) {
+            return;
+        }
+        $this->activiteiten->removeElement($a);
+    }
+
     /**
      * @inheritDoc
      */
