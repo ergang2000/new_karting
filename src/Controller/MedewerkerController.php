@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Activiteit;
+use App\Entity\Soortactiviteit;
 use App\Form\ActiviteitType;
+use App\Form\SoortactiviteitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -149,7 +151,98 @@ class MedewerkerController extends AbstractController
             'notice',
             'activiteit verwijderd!'
         );
-        return $this->redirectToRoute('beheer');
 
+        return $this->redirectToRoute('beheer');
+    }
+
+    /**
+     * @Route("/admin/soort", name="soort_index")
+     */
+    public function soortIndex() {
+        $soorten = $this->getDoctrine()->getRepository('App:Soortactiviteit')->findAll();
+        $activiteiten = $this->getDoctrine()->getRepository('App:Activiteit')->findAll();
+
+        return $this->render('medewerker/soort.html.twig', [
+            'soorten' => $soorten,
+            'aantal' => count($activiteiten)
+        ]);
+    }
+
+    /**
+     * @Route("/admin/soort/new", name="new_soort")
+     */
+    public function newSoort(Request $request) {
+        $soort = new Soortactiviteit();
+        $form = $this->createForm(SoortactiviteitType::class, $soort);
+        $form->add('save', SubmitType::class, array('label' => 'Maak'));
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($soort);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'soort toegevoegd!'
+            );
+
+            return $this->redirectToRoute('soort_index');
+        }
+
+        $activiteiten = $this->getDoctrine()->getRepository('App:Activiteit')->findAll();
+        return $this->render('medewerker/soort_form.html.twig', array(
+            'form' => $form->createView(),
+            'naam' => 'toevoegen',
+            'aantal' => count($activiteiten))
+        );
+    }
+
+    /**
+     * @Route("/admin/soort/{id}/edit", name="edit_soort")
+     */
+    public function editSoort(int $id, Request $request) {
+        $soort = $this->getDoctrine()->getRepository('App:Soortactiviteit')->find($id);
+        $form = $this->createForm(SoortactiviteitType::class, $soort);
+        $form->add('save', SubmitType::class, array('label' => 'Wijzig'));
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($soort);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'soort aangepast!'
+            );
+
+            return $this->redirectToRoute('soort_index');
+        }
+
+        $aantal = count($this->getDoctrine()->getRepository('App:Activiteit')->findAll());
+        return $this->render('medewerker/soort_form.html.twig', array(
+            'form'   => $form->createView(),
+            'naam'   => 'wijzigen',
+            'aantal' => $aantal
+        ));
+    }
+
+    /**
+     * @Route("/admin/soort/{id}/delete", name="delete_soort")
+     */
+    public function deleteSoort(int $id) {
+        $em = $this->getDoctrine()->getManager();
+        $soort = $this->getDoctrine()->getRepository('App:Soortactiviteit')->find($id);
+
+        $em->remove($soort);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'soort verwijderen!'
+        );
+
+        return $this->redirectToRoute('soort_index');
     }
 }

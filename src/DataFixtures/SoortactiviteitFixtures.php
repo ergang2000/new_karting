@@ -32,7 +32,7 @@ class SoortactiviteitFixtures extends Fixture
         $soort->setNaam($name)
             ->setMinLeeftijd($this->faker->numberBetween(16, 21))
             ->setPrijs($this->faker->randomFloat(2, 1, 100))
-            ->setTijdsduur($this->faker->numberBetween(1, 6));
+            ->setTijdsduur($this->faker->numberBetween(30, 120));
 
         $manager->persist($soort);
     }
