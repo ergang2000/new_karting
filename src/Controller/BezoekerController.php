@@ -36,6 +36,16 @@ class BezoekerController extends AbstractController
     }
 
     /**
+     * @Route("/kartactiviteiten/{id}", name="kartactiviteiten_detail")
+     */
+    public function kartactiviteitenDetail(int $id)
+    {
+        $soort = $this->getDoctrine()->getRepository('App:Soortactiviteit')->find($id);
+
+        return $this->render('bezoeker/kartactiviteit.html.twig', array('soort' => $soort));
+    }
+
+    /**
      * @Route("registreren", name="registreren")
      */
     public function registreren(Request $request,UserPasswordEncoderInterface $passwordEncoder)

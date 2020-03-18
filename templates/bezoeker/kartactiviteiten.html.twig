@@ -12,7 +12,7 @@
             <h3>Er zijn {{ soortactiviteiten|length }} soorten activiteiten </h3>
             <ul class="list-group">
                 {% for activiteit in soortactiviteiten %}
-                <li class="list-group-item text-primary">{{ activiteit.naam }}</li>
+                <a href="{{ path('kartactiviteiten_detail', {'id': activiteit.id}) }}"><li class="list-group-item text-primary">{{ activiteit.naam }}</li></a>
                 {% endfor %}
             </ul>
             <p>

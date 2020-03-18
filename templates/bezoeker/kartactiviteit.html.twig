@@ -1,0 +1,35 @@
+{% extends 'bezoeker.html.twig' %}
+{% block menu %}
+    <li><a href="{{ path('homepage') }}">home</a></li>
+    <li class="active"><a href="{{ path('kartactiviteiten') }}">aanbod</a></li>
+    <li><a href="{{ path('bezoeker_activiteiten') }}">activiteiten</a></li>
+    <li><a href="{{ path('registreren') }}">registreren</a></li>
+    <li><a href="#">contact</a></li>
+{% endblock %}
+{% block content %}
+    <section>
+        <table class="table table-bordered" style="table-layout: fixed">
+            <caption>Soort</caption>
+            <tr >
+                <td>Naam:</td>
+                <td class="text-primary">{{ soort.naam }}</td>
+            </tr>
+            <tr>
+                <td>Beschrijving:</td>
+                <td>{{ soort.beschrijving == "" ? 'Geen.' : soort.beschrijving }} </td>
+            </tr>
+            <tr >
+                <td>prijs:</td>
+                <td>€ {{ soort.prijs }}</td>
+            </tr>
+            <tr >
+                <td>tijdsduur:</td>
+                <td>{{ soort.tijdsduur }} {{ soort.tijdsduur == 1 ? 'minuut' : 'minuten' }}</td>
+            </tr>
+            <tr>
+                <td>Minimum leeftijd:</td>
+                <td>{{ soort.minLeeftijd }} </td>
+            </tr>
+        </table>
+    </section>
+{% endblock %}
