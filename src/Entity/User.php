@@ -16,24 +16,24 @@ class User implements UserInterface, \Serializable
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=25)
      * @Assert\NotBlank(message="vul gebruikersnaam in")
      */
-    private string $username;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=64)
      */
-    private string $password;
+    private $password;
 
     /**
      * @Assert\Length(max=4096)
      * @Assert\NotBlank(message="vul wachtwoord in")
      */
-    private string $plainPassword;
+    private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=60, unique=false)
@@ -41,53 +41,60 @@ class User implements UserInterface, \Serializable
      *    message = "The email '{{ value }}' is geen geldig email adres")
      * @Assert\NotBlank(message="vul emailadres in")
      */
-    private string $email;
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=10)
      * @Assert\NotBlank(message="vul voorletters in")
      */
-    private string $voorletters;
+    private $voorletters;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    private string $tussenvoegsel;
+    private $tussenvoegsel;
 
     /**
      * @ORM\Column(type="string", length=25)
      * @Assert\NotBlank(message="vul achternaam in")
      */
-    private string $achternaam;
+    private $achternaam;
 
     /**
      * @ORM\Column(type="string", length=7)
      * @Assert\NotBlank(message="vul adres in")
      */
-    private string $adres;
+    private $adres;
 
     /**
      * @ORM\Column(type="string", length=7)
      * @Assert\NotBlank(message="vul postcode in")
      */
-    private string $postcode;
+    private $postcode;
 
     /**
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank(message="vul woonplaats in")
      */
-    private string $woonplaats;
+    private $woonplaats;
 
     /**
      * @ORM\Column(type="string", length=15)
      * @Assert\NotBlank(message="vul telfoonnummer in")
      */
-    private string $telefoon;
+    private $telefoon;
 
     /**
      * @ORM\Column(type="json")
      */
-    private array $roles;
+    private $roles;
+
+    /**
+     * Many Users have Many Activities.
+     * @ORM\ManyToMany(targetEntity="Activiteit", inversedBy="users")
+     * @ORM\JoinTable(name="deelnames")
+     */
+    private $activiteiten;
 
     public function getId(): ?int
     {
@@ -97,6 +104,11 @@ class User implements UserInterface, \Serializable
     public function getUsername(): ?string
     {
         return $this->username;
+    }
+
+    function getNaam()
+    {
+        return $this->voorletters." ".$this->tussenvoegsel." ".$this->achternaam;
     }
 
     public function setUsername(string $username): self

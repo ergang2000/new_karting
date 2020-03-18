@@ -16,27 +16,27 @@ class Soortactiviteit
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $naam;
+    private $naam;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private int $minLeeftijd;
+    private $minLeeftijd;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private int $tijdsduur;
+    private $tijdsduur;
 
     /**
      * @ORM\Column(type="decimal", precision=6, scale=2)
      */
-    private float $prijs;
+    private $prijs;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Activiteit", mappedBy="soort")
