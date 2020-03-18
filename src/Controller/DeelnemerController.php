@@ -39,16 +39,19 @@ class DeelnemerController extends AbstractController
      */
     public function inschrijvenActiviteitAction($id)
     {
-
         $activiteit = $this->getDoctrine()
             ->getRepository('App:Activiteit')
             ->find($id);
-        $usr= $this->get('security.token_storage')->getToken()->getUser();
-        $usr->addActiviteit($activiteit);
+        if ($activiteit->getMaxDeelnemers() == $activiteit->getUsers()->count()) {
+            $this->addFlash('error', 'deelnemers limiet bereikt!');
+        } else {
+            $usr = $this->get('security.token_storage')->getToken()->getUser();
+            $usr->addActiviteit($activiteit);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($usr);
-        $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($usr);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('activiteiten');
     }

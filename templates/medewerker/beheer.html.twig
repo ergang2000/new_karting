@@ -14,6 +14,7 @@
                 <td>datum</td>
                 <td>Tijd</td>
                 <td>soort activiteit</td>
+                <td>max deelnemers</td>
                 <td>deelnemers</td>
                 <td>bewerken</td>
                 <td>verwijderen</td>
@@ -31,6 +32,9 @@
 
                     <td>
                         {{ activiteit.soort.naam}}
+                    </td>
+                    <td>
+                        {{ activiteit.maxDeelnemers }}
                     </td>
                     <td>
                         {{ activiteit.users|length}}

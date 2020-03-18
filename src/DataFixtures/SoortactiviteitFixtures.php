@@ -30,6 +30,7 @@ class SoortactiviteitFixtures extends Fixture
     {
         $soort = new Soortactiviteit();
         $soort->setNaam($name)
+            ->setBeschrijving($this->faker->text)
             ->setMinLeeftijd($this->faker->numberBetween(16, 21))
             ->setPrijs($this->faker->randomFloat(2, 1, 100))
             ->setTijdsduur($this->faker->numberBetween(30, 120));

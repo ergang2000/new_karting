@@ -18,6 +18,7 @@
         <tr>
             <td>datum</td>
             <td>tijd</td>
+            <td>max deelnemers</td>
             <td>soort activiteit</td>
             <td>prijs</td>
         </tr>
@@ -31,7 +32,9 @@
             <td>
                 {{ activiteit.tijd|date("H:i")}}
             </td>
-
+            <td>
+                {{ activiteit.maxDeelnemers }}
+            </td>
             <td>
                 {{ activiteit.soort.naam}}
             </td>

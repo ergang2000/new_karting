@@ -23,7 +23,9 @@
                 <td>tijd:</td>
                 <td>{{ activiteit.tijd|date("h:i")}}</td>
             </tr>
-
+            <tr>
+                {{ activiteit.maxDeelnemers }}
+            </tr>
 
         </table>
         {%  if deelnemers|length > 0 %}

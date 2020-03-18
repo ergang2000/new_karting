@@ -42,6 +42,12 @@ class Activiteit
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\GreaterThan(0, message="mag niet kleiner dan 1 zijn")
+     */
+    private $maxDeelnemers;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -110,6 +116,18 @@ class Activiteit
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
         }
+
+        return $this;
+    }
+
+    public function getMaxDeelnemers(): ?int
+    {
+        return $this->maxDeelnemers;
+    }
+
+    public function setMaxDeelnemers(int $maxDeelnemers): self
+    {
+        $this->maxDeelnemers = $maxDeelnemers;
 
         return $this;
     }
