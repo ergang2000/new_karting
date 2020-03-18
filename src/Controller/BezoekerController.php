@@ -136,4 +136,14 @@ class BezoekerController extends AbstractController
         }
         return $this->render('admin/nieuwSA.html.twig',array('boodschap'=>'Voeg een nieuwe Activiteit toe','form'=>$form->createView(),));
     }
+
+    /**
+     * @Route("/activiteiten", name="bezoeker_activiteiten")
+     */
+    public function activiteitenIndex() {
+        $repository = $this->getDoctrine()->getRepository('App:Activiteit');
+        $activiteiten = $repository->findAll();
+
+        return $this->render('bezoeker/activiteiten.html.twig', ['beschikbare_activiteiten' => $activiteiten]);
+    }
 }
