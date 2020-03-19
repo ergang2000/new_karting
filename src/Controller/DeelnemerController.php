@@ -26,7 +26,6 @@ class DeelnemerController extends AbstractController
             ->getRepository('App:Activiteit')
             ->getTotaal($ingeschrevenActiviteiten);
 
-
         return $this->render('deelnemer/activiteiten.html.twig', [
             'beschikbare_activiteiten'=>$beschikbareActiviteiten,
             'ingeschreven_activiteiten'=>$ingeschrevenActiviteiten,
@@ -39,11 +38,14 @@ class DeelnemerController extends AbstractController
      */
     public function inschrijvenActiviteitAction($id)
     {
+        $now = new \DateTime();
         $activiteit = $this->getDoctrine()
             ->getRepository('App:Activiteit')
             ->find($id);
         if ($activiteit->getMaxDeelnemers() == $activiteit->getUsers()->count()) {
             $this->addFlash('error', 'deelnemers limiet bereikt!');
+        } else if ($activiteit->getDatum()->getTimestamp() < $now->getTimestamp()) {
+            $this->addFlash('error', 'deadline bereikt!');
         } else {
             $usr = $this->get('security.token_storage')->getToken()->getUser();
             $usr->addActiviteit($activiteit);

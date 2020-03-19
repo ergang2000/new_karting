@@ -18,17 +18,26 @@ class ActiviteitRepository extends ServiceEntityRepository
         parent::__construct($registry, Activiteit::class);
     }
 
-    public function getBeschikbareActiviteiten($userid)
+    /**
+     * @param $userid
+     * @return Activiteit[]
+     */
+    public function getBeschikbareActiviteiten($userid): array
     {
         $em=$this->getEntityManager();
-        $query=$em->createQuery("SELECT a FROM App\Entity\Activiteit a WHERE :userid NOT MEMBER OF a.users ORDER BY a.datum");
+        $query=$em->createQuery("SELECT a FROM App\Entity\Activiteit a WHERE :userid NOT MEMBER OF a.users AND :date < a.datum ORDER BY a.datum");
 
         $query->setParameter('userid',$userid);
+        $query->setParameter('date', new \DateTime());
 
         return $query->getResult();
     }
 
-    public function getIngeschrevenActiviteiten($userid)
+    /**
+     * @param $userid
+     * @return Activiteit[]
+     */
+    public function getIngeschrevenActiviteiten($userid): array
     {
 
         $em=$this->getEntityManager();
@@ -39,7 +48,7 @@ class ActiviteitRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function getTotaal($activiteiten)
+    public function getTotaal($activiteiten): float
     {
 
         $totaal=0;
@@ -50,7 +59,11 @@ class ActiviteitRepository extends ServiceEntityRepository
         return $totaal;
 
     }
-    public function findAll()
+
+    /**
+     * @return Activiteit[]
+     */
+    public function findAll(): array
     {
         return $this->findBy(array(),array('datum'=>'ASC'));
     }
