@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Activiteit;
 use App\Entity\Soortactiviteit;
 use App\Form\ActiviteitType;
+use App\Form\PasswordUpdateType;
 use App\Form\SoortactiviteitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MedewerkerController extends AbstractController
 {
@@ -244,5 +246,82 @@ class MedewerkerController extends AbstractController
         );
 
         return $this->redirectToRoute('soort_index');
+    }
+
+    /**
+     * @Route("/admin/deelnemers", name="deelnemer_index")
+     */
+    public function deelnemerIndex()
+    {
+        $users = $this->getDoctrine()->getRepository('App:User')->getFromRole('ROLE_USER');
+        $aantal = count($this->getDoctrine()->getRepository('App:Activiteit')->findAll());
+
+        return $this->render('medewerker/deelnemer.html.twig', [
+            'users'  => $users,
+            'aantal' => $aantal
+        ]);
+    }
+
+    /**
+     * @Route("/admin/deelnemers/{id}", name="deelnemer_detail")
+     */
+    public function deelnemerDetail(int $id)
+    {
+        $user = $this->getDoctrine()->getRepository('App:User')->find($id);
+        $aantal = count($this->getDoctrine()->getRepository('App:Activiteit')->findAll());
+
+        return $this->render('medewerker/deelnemer_detail.html.twig', [
+            'user'   => $user,
+            'aantal' => $aantal
+        ]);
+    }
+
+    /**
+     * @Route("/admin/deelnemers/{id}/edit", name="edit_deelnemer")
+     */
+    public function editDeelnemer(int $id, UserPasswordEncoderInterface $passwordEncoder, Request $request)
+    {
+        $user = $this->getDoctrine()->getRepository('App:User')->find($id);
+        $form = $this->createForm(PasswordUpdateType::class, $user);
+        $form->add('save', SubmitType::class, ['label' => 'wijzig']);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPlainPassword()));
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('notice', 'wachtwoord gewijzigd');
+
+            return $this->redirectToRoute('deelnemer_index');
+        }
+
+        $aantal = count($this->getDoctrine()->getRepository('App:Activiteit')->findAll());
+        return $this->render('medewerker/deelnemer_edit.html.twig', [
+            'form'   => $form->createView(),
+            'user'   => $user,
+            'aantal' => $aantal
+        ]);
+    }
+
+    /**
+     * @Route("/admin/deelnemers/{id}/delete", name="delete_deelnemer")
+     */
+    public function deleteDeelnemer(int $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository('App:User')->find($id);
+
+        $em->remove($user);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'deelnemer verwijderen!'
+        );
+
+        return $this->redirectToRoute('deelnemer_index');
     }
 }

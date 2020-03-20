@@ -31,4 +31,18 @@ class UserRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * @param string $role
+     * @return User[]
+     */
+    public function getFromRole(string $role): array
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery("SELECT u FROM App\Entity\User u WHERE u.roles LIKE :role");
+        $query->setParameter('role', '%"'.$role.'"%');
+
+        return $query->getResult();
+    }
 }

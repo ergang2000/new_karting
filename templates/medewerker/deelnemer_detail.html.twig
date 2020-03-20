@@ -1,0 +1,44 @@
+{% extends 'medewerker.html.twig' %}
+
+{% block menu %}
+    <li><a href="{{ path('activiteitenoverzicht') }}">home</a></li>
+    <li><a href="{{ path('beheer') }}"><span class="badge">{{ aantal }}</span>beheer</a></li>
+    <li><a href="{{ path('soort_index') }}">soorten</a></li>
+    <li class="active"><a href="{{ path('deelnemer_index') }}">deelnemers</a></li>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <table class="table table-bordered" style="table-layout: fixed">
+            <caption>Deelnemer</caption>
+            <tr >
+                <td>Naam:</td>
+                <td class="text-primary">{{ user.naam }}</td>
+            </tr>
+            <tr>
+                <td>Username:</td>
+                <td>{{ user.username }} </td>
+            </tr>
+            <tr >
+                <td>Email:</td>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <td>Telefoonnummer</td>
+                <td>{{ user.telefoon }}</td>
+            </tr>
+            <tr>
+                <td>Adres</td>
+                <td>{{ user.adres }}</td>
+            </tr>
+            <tr>
+                <td>Postcode:</td>
+                <td>{{ user.postcode }}</td>
+            </tr>
+            <tr>
+                <td>Woonplaats:</td>
+                <td>{{ user.woonplaats }}</td>
+            </tr>
+        </table>
+    </section>
+{% endblock %}

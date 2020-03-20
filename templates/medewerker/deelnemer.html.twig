@@ -1,0 +1,53 @@
+{% extends 'medewerker.html.twig' %}
+
+{% block menu %}
+    <li><a href="{{ path('activiteitenoverzicht') }}">home</a></li>
+    <li><a href="{{ path('beheer') }}"><span class="badge">{{ aantal }}</span>beheer</a></li>
+    <li><a href="{{ path('soort_index') }}">soorten</a></li>
+    <li class="active"><a href="{{ path('deelnemer_index') }}">deelnemers</a></li>
+{% endblock %}
+
+{% block content %}
+    <section >
+        <table class="table" style="table-layout: fixed">
+            <caption>Dit zijn alle deelnemers van het kartcentrum</caption>
+            <thead>
+            <tr>
+                <td>Naam</td>
+                <td>Username</td>
+                <td>Email</td>
+                <td>Telefoonnummer</td>
+                <td>Details zien</td>
+                <td>Wijzigen</td>
+                <td>Verwijderen</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.naam }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.telefoon }}</td>
+                    <td title="bekijken van de gegevens van deze deelnemer">
+                        <a href="{{ path('deelnemer_detail', { 'id': user.id }) }}">
+                            <span class="glyphicon glyphicon-search" style="color: red"></span>
+                        </a>
+                    </td>
+                    <td title="bewerk de gegevens van deze deelnemer">
+                        <a href="{{ path('edit_deelnemer', {'id':user.id}) }}" >
+                            <span class="glyphicon glyphicon-pencil" style="color:red"></span>
+                        </a>
+                    </td>
+                    <td title="verwijder deze deelnemer is definitief">
+                        <a href="{{ path('delete_deelnemer', {'id':user.id}) }}" >
+                            <span class="glyphicon glyphicon-minus" style="color:red"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}
+

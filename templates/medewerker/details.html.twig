@@ -4,6 +4,7 @@
     <li><a href="{{ path('activiteitenoverzicht') }}">home</a></li>
     <li><a href="{{ path('beheer') }}"><span class="badge">{{ aantal }}</span>beheer</a></li>
     <li><a href="{{ path('soort_index') }}">soorten</a></li>
+    <li><a href="{{ path('deelnemer_index') }}">deelnemers</a></li>
 {% endblock %}
 {% block content %}
 
@@ -24,7 +25,8 @@
                 <td>{{ activiteit.tijd|date("h:i")}}</td>
             </tr>
             <tr>
-                {{ activiteit.maxDeelnemers }}
+                <td>Maximaal aantal deelnemers:</td>
+                <td>{{ activiteit.maxDeelnemers }}</td>
             </tr>
 
         </table>

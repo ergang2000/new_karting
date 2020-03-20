@@ -1,14 +1,6 @@
 {% extends 'medewerker.html.twig' %}
-
-{% block menu %}
-    <li><a href="{{ path('activiteitenoverzicht') }}">home</a></li>
-    <li><a href="{{ path('beheer') }}"><span class="badge">{{ aantal }}</span>beheer</a></li>
-    <li class="active"><a href="{{ path('soort_index') }}">soorten</a></li>
-    <li><a href="{{ path('deelnemer_index') }}">deelnemers</a></li>
-{% endblock %}
-
 {% form_theme form _self %}
-{% block button_widget %}
+{% block button_widget -%}
     {%- set attr = attr|merge({class: (attr.class|default('btn-primary') ~ ' btn')|trim}) -%}
     {%- if label is not same as(false) and label is empty -%}
         {%- if label_format is not empty -%}
@@ -21,18 +13,20 @@
         {%- endif -%}
     {%- endif -%}
     <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</button>
-{%- endblock button_widget %}
 
-{% block form_group_class %}
+{%- endblock button_widget %}
+{% block form_group_class -%}
     col-sm-6
 {%- endblock form_group_class %}
+{% block menu %}
+    <li><a href="{{ path('activiteitenoverzicht') }}">home</a></li>
+    <li><a href="{{ path('beheer') }}"><span class="badge">{{ aantal }}</span>beheer</a></li>
+    <li><a href="{{ path('soort_index') }}">soorten</a></li>
+    <li class="active"><a href="{{ path('deelnemer_index') }}">deelnemers</a></li>
+{% endblock %}
 
 {% block content %}
-    <h3>Soort {{ naam }}</h3>
-
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-
-
+    <h3>Wachtwoord van {{ user.username }} wijzigen</h3>
+    {{ form(form) }}
 {% endblock %}
+
