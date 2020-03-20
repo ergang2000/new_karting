@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Form\PasswordUpdateType;
+use App\Form\UserUpdateType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class DeelnemerController extends AbstractController
 {
@@ -80,5 +86,54 @@ class DeelnemerController extends AbstractController
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    /**
+     * @Route("/user/profiel", name="edit_profile")
+     */
+    public function editProfile(UserInterface $user, Request $request)
+    {
+        $user->setPlainPassword('a');
+        $form = $this->createForm(UserUpdateType::class, $user);
+        $form->add('save', SubmitType::class, ['label' => 'wijzig']);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('notice', 'gegevens gewijzigd');
+            return $this->redirectToRoute('activiteiten');
+        }
+
+        return $this->render('deelnemer/profiel.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/user/wachtwoord", name="edit_password")
+     */
+    public function editPassword(UserInterface $user, UserPasswordEncoderInterface $passwordEncoder, Request $request)
+    {
+        $form = $this->createForm(PasswordUpdateType::class, $user);
+        $form->add('save', SubmitType::class, ['label' => 'wijzig']);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPlainPassword()));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('notice', 'Wachtwoord gewijzigd');
+            return $this->redirectToRoute('activiteiten');
+        }
+
+        return $this->render('deelnemer/wachtwoord.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
