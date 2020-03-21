@@ -1,24 +1,20 @@
 <template>
-    <b-navbar variant="default">
-        <b-container fluid="true">
-            <div class="navbar-header">
-                <b-navbar-toggle target="_self">
-                    <span class="icon-bar" />
-                    <span class="icon-bar" />
-                    <span class="icon-bar" />
-                </b-navbar-toggle>
-                <b-icon-brightness-high />
-            </div>
-        </b-container>
-    </b-navbar>
+    <b-nav pills>
+        <NavbarItem to="/">home</NavbarItem>
+        <NavbarItem to="#" id="login">inloggen</NavbarItem>
+    </b-nav>
 </template>
 
 <script>
+    import NavbarItem from '@/components/NavbarItem';
     export default {
         name: 'Navbar',
+        components: { NavbarItem }
     }
 </script>
 
 <style scoped>
-
+    #login {
+        margin-left: auto;
+    }
 </style>
