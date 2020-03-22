@@ -1,5 +1,6 @@
 <template>
-    <div class="home">
+    <div>
+        <p>sub</p>
     </div>
 </template>
 

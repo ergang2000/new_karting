@@ -6,7 +6,8 @@
 </template>
 
 <script>
-    import NavbarItem from '@/components/NavbarItem';
+    import NavbarItem from '@/components/NavbarItem'
+
     export default {
         name: 'Navbar',
         components: { NavbarItem }
