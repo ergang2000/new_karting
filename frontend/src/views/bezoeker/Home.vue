@@ -29,7 +29,7 @@
 <script>
     import Panel from '@/components/Panel';
     import { call } from '@/api';
-    import { getSoort } from '@/services/Soortactiviteit_service';
+    import { getSoorten } from '@/services/Soortactiviteit_service';
     import Soortactiviteit from '@/models/Soortactiviteit';
     export default {
         name: 'Home',
