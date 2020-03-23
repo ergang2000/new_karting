@@ -23,4 +23,12 @@ class BezoekerController extends AbstractFOSRestController
         $soorten = $this->getDoctrine()->getRepository('App:Soortactiviteit')->findAll();
         return $this->handleView($this->view($soorten));
     }
+
+    /**
+     * @Rest\Get("/activiteiten")
+     */
+    public function getBeschikbareActiviteiten() {
+        $activiteiten = $this->getDoctrine()->getRepository('App:Activiteit')->findAll();
+        return $this->handleView($this->view($activiteiten));
+    }
 }
