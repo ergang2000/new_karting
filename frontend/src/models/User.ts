@@ -1,14 +1,17 @@
-class User {
-    id: number = undefined
-    username: string = undefined
-    email: string = undefined
-    voorletters: string = undefined
-    tussenvoegsel?: string = undefined
-    adres: string = undefined
-    postcode: string = undefined
-    woonplaats: string = undefined
-    telefoon: string = undefined
-    roles: Array<string> = undefined
+import Activiteit from '@/models/Activiteit'
+
+interface User {
+    id: number
+    username: string
+    email: string
+    voorletters: string
+    tussenvoegsel?: string | undefined | null
+    adres: string
+    postcode: string
+    woonplaats: string
+    telefoon: string
+    roles: Array<string>
+    activiteiten: Array<Activiteit>
 }
 
 export default User

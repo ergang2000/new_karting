@@ -28,10 +28,16 @@
 
 <script>
     import Panel from '@/components/Panel';
+    import { call } from '@/api';
+    import { getSoort } from '@/services/Soortactiviteit_service';
+    import Soortactiviteit from '@/models/Soortactiviteit';
     export default {
         name: 'Home',
         components: {
             Panel,
         },
+        data: () => ({
+            soorten: undefined
+        })
     }
 </script>
