@@ -1,12 +1,14 @@
 <template>
-    <b-container id="container">
-        <Header />
-        <Navbar />
-        <Banner />
-        <router-view/>
-        <hr>
-        <Footer />
-    </b-container>
+    <div>
+        <b-container id="container">
+            <Header />
+            <Navbar />
+            <Banner />
+            <router-view/>
+            <hr>
+            <Footer />
+        </b-container>
+    </div>
 </template>
 <script>
     import Header from '@/components/Header'

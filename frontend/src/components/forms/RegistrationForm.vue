@@ -25,7 +25,7 @@
             />
         </b-form-group>
         <b-form-group
-                :validated="confirmPassword"
+                :validated="confirmationValidation"
                 id="confirmGroup"
                 label="Herhaal wachtwoord"
                 label-for="confirm"
@@ -135,7 +135,10 @@
                     required
             />
         </b-form-group>
-        <b-button type="submit" variant="primary">registreren</b-button>
+        <b-form-row>
+            <b-button type="submit" variant="primary" :disabled="loading">registreren</b-button>
+            <b-spinner v-if="loading" />
+        </b-form-row>
     </b-form>
 </template>
 
@@ -145,7 +148,8 @@
     export default {
         name: 'RegistrationForm',
         props: {
-            user: User
+            user: User,
+            loading: Boolean
         },
         data: () => ({
             confirmPassword: undefined,

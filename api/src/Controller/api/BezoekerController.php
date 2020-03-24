@@ -43,11 +43,16 @@ class BezoekerController extends AbstractFOSRestController
      */
     public function registerUser(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
         $data = json_decode($request->getContent(), true);
+        $repository = $this->getDoctrine()->getRepository('App:User');
+        $existingUsers = $repository->findBy(['username' => $data['username']]);
+
+        if (count($existingUsers) > 0) {
+            return $this->handleView($this->view(['success' => false, 'errors' => ['Gebruikersnaam in gebruik']], 401));
+        }
         $data['password'] = $passwordEncoder->encodePassword(new User(), $data['plainPassword']);
         unset($data['plainPassword']);
         $data['roles'] = '["ROLE_USER"]';
-        $success = $this->getDoctrine()->getRepository('App:User')
-            ->createFromArray($data);
+        $success = $repository->createFromArray($data);
 
         return $this->handleView($this->view(['success' => $success], $success ? 201 : 409));
     }
