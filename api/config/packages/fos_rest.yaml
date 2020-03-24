@@ -15,3 +15,5 @@ fos_rest:
         view_response_listener: 'force'
         formats:
             json: true
+    body_converter:
+        enabled: true

@@ -11,14 +11,12 @@ export interface ApiObject {
 const url = getApiUrl()
 
 export function call(api: ApiObject) {
-    const body = new FormData()
+    // const body: FormData = new FormData()
+    let body = '{}'
 
     if (api.parameters) {
-        const keys = Object.keys(api.parameters)
-
-        for (const key in keys) {
-            body.append(key, api.parameters[key])
-        }
+        // Object.keys(api.parameters).forEach(key => body.append(key, api.parameters[key]));
+        body = JSON.stringify(api.parameters)
     }
 
     if (api.method === 'GET') {

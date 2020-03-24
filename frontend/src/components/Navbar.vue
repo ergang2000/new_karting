@@ -3,6 +3,7 @@
         <NavbarItem to="/">home</NavbarItem>
         <NavbarItem to="/kartactiviteiten">aanbod</NavbarItem>
         <NavbarItem to="/activiteiten">activiteiten</NavbarItem>
+        <NavbarItem to="/registreren">registreren</NavbarItem>
         <NavbarItem to="#">contact</NavbarItem>
         <NavbarItem to="#" id="login">inloggen</NavbarItem>
     </b-nav>

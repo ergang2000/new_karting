@@ -20,7 +20,8 @@
         "symfony/security-bundle": "4.4.*",
         "symfony/twig-pack": "^1.0",
         "symfony/validator": "4.4.*",
-        "symfony/yaml": "4.4.*"
+        "symfony/yaml": "4.4.*",
+        "ext-json": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9",

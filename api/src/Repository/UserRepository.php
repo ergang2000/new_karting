@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\DriverManager;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -44,5 +45,31 @@ class UserRepository extends ServiceEntityRepository
         $query->setParameter('role', '%"'.$role.'"%');
 
         return $query->getResult();
+    }
+
+    public function createFromArray(array $attributes)
+    {
+        try {
+            $conn = $this->getEntityManager()->getConnection();
+            $queryBuilder = $conn->createQueryBuilder();
+
+            $queryBuilder
+                ->insert('user');
+
+            // the reason that we loop through the values twice and not insert the values directly
+            // is because this way the values also gets serialized
+            foreach ($attributes as $key => $value) {
+                $queryBuilder->setValue($key, ':'.$key);
+            }
+            foreach ($attributes as $key => $value) {
+                $queryBuilder->setParameter($key, $value);
+            }
+
+            $queryBuilder->execute();
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
