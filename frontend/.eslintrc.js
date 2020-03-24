@@ -23,6 +23,7 @@ module.exports = {
         delimiter: 'semi',    // 'semi' or 'comma'
         requireLast: false,
       },
-    }]
+    }],
+    '@typescript-eslint/camelcase': 'off',
   }
 }

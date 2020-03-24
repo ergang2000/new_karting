@@ -8,11 +8,21 @@
         props: {
             to: String
         },
+        data: () => ({
+            currentRoute: ''
+        }),
         computed: {
             isActive() {
-                console.log(this.$router.currentRoute.path)
-                return this.$router.currentRoute.path === this.to
+                return this.currentRoute === this.to
             }
+        },
+        watch: {
+            $route(to, from) {
+                this.currentRoute = to.fullPath
+            }
+        },
+        created() {
+            this.currentRoute = this.$router.currentRoute.path
         }
     }
 </script>

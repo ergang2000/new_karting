@@ -2,6 +2,7 @@
     <b-nav pills>
         <NavbarItem to="/">home</NavbarItem>
         <NavbarItem to="/kartactiviteiten">aanbod</NavbarItem>
+        <NavbarItem to="/activiteiten">activiteiten</NavbarItem>
         <NavbarItem to="#">contact</NavbarItem>
         <NavbarItem to="#" id="login">inloggen</NavbarItem>
     </b-nav>

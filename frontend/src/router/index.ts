@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/bezoeker/Home.vue'
 import Aanbod from '../views/bezoeker/Aanbod.vue'
+import Activiteiten from '../views/bezoeker/Activiteiten.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
         path: '/kartactiviteiten',
         name: 'Aanbod',
         component: Aanbod
+    },
+    {
+        path: '/activiteiten',
+        name: 'Activiteiten',
+        component: Activiteiten
     }
 ]
 
