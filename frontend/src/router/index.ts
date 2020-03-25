@@ -4,6 +4,7 @@ import Home from '../views/bezoeker/Home.vue'
 import Aanbod from '../views/bezoeker/Aanbod.vue'
 import Activiteiten from '../views/bezoeker/Activiteiten.vue'
 import Registreren from '../views/bezoeker/Registreren.vue'
+import AanbodDetails from '../views/bezoeker/AanbodDetails.vue'
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,11 @@ const routes = [
         path: '/kartactiviteiten',
         name: 'Aanbod',
         component: Aanbod
+    },
+    {
+        path: '/kartactiviteiten/:id',
+        name: 'AanbodDetails',
+        component: AanbodDetails
     },
     {
         path: '/activiteiten',

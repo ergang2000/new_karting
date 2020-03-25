@@ -24,10 +24,18 @@ class BezoekerController extends AbstractFOSRestController
     /**
      * @Rest\Get("/soortactiviteiten")
      */
-    public function getSoort()
+    public function getSoortIndex()
     {
         $soorten = $this->getDoctrine()->getRepository('App:Soortactiviteit')->findAll();
         return $this->handleView($this->view($soorten));
+    }
+
+    /**
+     * @Rest\Get("/soortactiviteiten/{id}")
+     */
+    public function getSoortDetails(int $id) {
+        $soort = $this->getDoctrine()->getRepository('App:Soortactiviteit')->find($id);
+        return $this->handleView($this->view($soort));
     }
 
     /**

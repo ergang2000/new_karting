@@ -8,7 +8,6 @@
 
 <script>
     import RegistrationForm from '../../components/forms/RegistrationForm';
-    import { call } from '@/api';
     import { registerUser } from '@/services/User_service';
     import { isUndefinedOrNullOrEmpty } from 'bootstrap-vue/esm/utils/inspect';
     export default {
@@ -37,7 +36,7 @@
             },
             submit() {
                 this.loading = true
-                call(registerUser(this.user))
+                this.$call(registerUser(this.user))
                     .then(res => {
                         this.loading = false
                         if (res.success) {

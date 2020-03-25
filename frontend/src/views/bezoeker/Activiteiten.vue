@@ -15,7 +15,6 @@
 </template>
 
 <script>
-    import { call } from '../../api';
     import { getActiviteiten } from '../../services/Activiteit_service';
     import moment from 'moment'
     import { formatMoney } from '@/utils';
@@ -43,7 +42,7 @@
             }
         },
         created() {
-            call(getActiviteiten()).then(res => this.activiteiten = res)
+            this.$call(getActiviteiten()).then(res => this.activiteiten = res)
         },
     }
 </script>
