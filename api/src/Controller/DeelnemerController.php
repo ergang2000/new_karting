@@ -51,7 +51,7 @@ class DeelnemerController extends AbstractController
         if ($activiteit->getMaxDeelnemers() == $activiteit->getUsers()->count()) {
             $this->addFlash('error', 'deelnemers limiet bereikt!');
         } else if ($activiteit->getDatum()->getTimestamp() < $now->getTimestamp()) {
-            $this->addFlash('error', 'deadline bereikt!');
+            $this->addFlash('error', 'deadline verstreken!');
         } else {
             $usr = $this->get('security.token_storage')->getToken()->getUser();
             $usr->addActiviteit($activiteit);

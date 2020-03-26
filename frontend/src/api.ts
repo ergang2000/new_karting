@@ -44,6 +44,11 @@ const mixin: ComponentOptions<Vue> = {
                     method: api.method.toLowerCase(),
                     headers,
                 }).then(res => {
+                    if (res.status === 401) {
+                        this.$store.dispatch('logout')
+                            .then(() => this.$router.push('/login'))
+                    }
+
                     return res.json()
                 })
             }

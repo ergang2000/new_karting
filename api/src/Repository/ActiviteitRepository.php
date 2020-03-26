@@ -22,7 +22,8 @@ class ActiviteitRepository extends ServiceEntityRepository
      * @param $userid
      * @return Activiteit[]
      */
-    public function getBeschikbareActiviteiten($userid): array
+    public function
+    getBeschikbareActiviteiten($userid): array
     {
         $em=$this->getEntityManager();
         $query=$em->createQuery("SELECT a FROM App\Entity\Activiteit a WHERE :userid NOT MEMBER OF a.users AND :date < a.datum ORDER BY a.datum");

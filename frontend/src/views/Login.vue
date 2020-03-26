@@ -38,6 +38,8 @@
                                 })
 
                                 this.loading = false
+
+                                this.$router.push('/user/activiteiten')
                             })
                             .catch(() => this.onError())
                     })

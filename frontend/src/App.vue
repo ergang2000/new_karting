@@ -25,7 +25,7 @@
             redirectIfNeeded(route) {
                 if (this.isUserRoute(route) && !this.isUserAuthenticated) {
                     this.$router.push('/login')
-                } else if (this.isUserAuthenticated()) {
+                } else if (this.isUserAuthenticated) {
                     this.$router.push('/user/activiteiten')
                 }
             }

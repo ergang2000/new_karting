@@ -5,6 +5,7 @@ import Aanbod from '../views/bezoeker/Aanbod.vue'
 import Activiteiten from '../views/bezoeker/Activiteiten.vue'
 import Registreren from '../views/bezoeker/Registreren.vue'
 import AanbodDetails from '../views/bezoeker/AanbodDetails.vue'
+import UserActiviteiten from '../views/deelnemer/Activiteiten.vue'
 import Login from '../views/Login.vue'
 
 Vue.use(VueRouter)
@@ -39,6 +40,11 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login
+    },
+    {
+        path: '/user/activiteiten',
+        name: 'userActiviteiten',
+        component: UserActiviteiten
     }
 ]
 

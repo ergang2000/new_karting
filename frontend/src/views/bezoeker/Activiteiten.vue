@@ -4,12 +4,9 @@
             <b-spinner id="spinner"></b-spinner>
         </div>
         <div v-else>
-            <b-row style="margin-left: 2px">
-                <caption>
-                    Dit zijn alle beschikbare activiteiten
-                </caption>
-            </b-row>
-            <b-table :items="getConvertedActiviteiten" style="table-layout: fixed"/>
+            <b-table :items="activiteiten" :fields="fields" show-empty style="table-layout: fixed" caption-top>
+                <template v-slot:table-caption>Dit zijn alle beschikbare activiteiten</template>
+            </b-table>
         </div>
     </div>
 </template>
@@ -22,25 +19,33 @@
     export default {
         name: "Activiteiten",
         data: () => ({
-            activiteiten: []
-        }),
-        computed: {
-            getConvertedActiviteiten() {
-
-                return this.activiteiten.map(activiteit => {
-                    const tijd = moment(activiteit.tijd)
-                    const datum = moment(activiteit.datum)
-
-                    return {
-                        datum: datum.format('DD-MM-YYYY'),
-                        tijd: tijd.format('HH:mm'),
-                        max_deelnemers: activiteit.maxDeelnemers,
-                        soort_activiteit: activiteit.soort.naam,
-                        prijs: '€' + formatMoney(activiteit.soort.prijs, 2, ',', '.')
+            activiteiten: [],
+            fields: [
+                {
+                    key: 'datum',
+                    label: 'Datum',
+                    formatter (value) {
+                        return moment(value).format('DD-MM-YYYY')
                     }
-                })
-            }
-        },
+                },
+                {
+                    key: 'tijd',
+                    label: 'Tijd',
+                    formatter(value) {
+                        return moment(value).format('HH:mm')
+                    }
+                },
+                { key: 'maxDeelnemers', label: 'Max deelnemers' },
+                { key: 'soort.naam', label: 'Soort activiteit' },
+                {
+                    key: 'soort.prijs',
+                    label: 'Prijs',
+                    formatter(value) {
+                        return '€' + formatMoney(value, 2, ',', '.')
+                    }
+                },
+            ]
+        }),
         created() {
             this.$call(getActiviteiten()).then(res => this.activiteiten = res)
         },
