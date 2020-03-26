@@ -1,5 +1,5 @@
 <template>
-    <b-nav-item :to="to" :active="isActive"><slot></slot></b-nav-item>
+    <b-nav-item :to="to" :active="isActive" @click="$emit('click')"><slot></slot></b-nav-item>
 </template>
 
 <script>

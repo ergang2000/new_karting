@@ -13,14 +13,25 @@ export default new Vuex.Store({
         setUser(state: any, user: User) {
             state.user = user
         },
+        removeUser(state: any) {
+            state.user = undefined
+        },
         setToken(state: any, token: string) {
             state.token = token
-        }
+        },
+        removeToken(state: any) {
+            state.token = undefined
+        },
     },
     actions: {
         login(context: any, { token, user }) {
             context.commit('setUser', user)
             context.commit('setToken', token)
+        },
+
+        logout(context: any) {
+            context.commit('removeUser')
+            context.commit('removeToken')
         }
     },
     modules: {},

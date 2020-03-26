@@ -6,7 +6,7 @@
             <NavbarItem to="#">wachtwoord</NavbarItem>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-            <NavbarItem to="/logout">{{ $store.state.user.username }} uitloggen</NavbarItem>
+            <NavbarItem @click="logout">{{ $store.state.user.username }} uitloggen</NavbarItem>
         </b-navbar-nav>
     </b-collapse>
 </template>
@@ -16,6 +16,12 @@
     export default {
         name: 'UserNavbar',
         components: { NavbarItem },
+        methods: {
+            logout() {
+                this.$store.dispatch('logout')
+                    .then(() => this.$router.push('/'))
+            }
+        }
     }
 </script>
 
