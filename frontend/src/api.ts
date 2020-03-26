@@ -25,7 +25,6 @@ const mixin: ComponentOptions<Vue> = {
             }
 
             if (api.parameters) {
-                // Object.keys(api.parameters).forEach(key => body.append(key, api.parameters[key]));
                 body = JSON.stringify(api.parameters)
             }
 
