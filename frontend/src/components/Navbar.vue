@@ -11,7 +11,7 @@
                 <NavbarItem to="#">contact</NavbarItem>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
-                <NavbarItem to="#">inloggen</NavbarItem>
+                <NavbarItem to="/login">inloggen</NavbarItem>
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
