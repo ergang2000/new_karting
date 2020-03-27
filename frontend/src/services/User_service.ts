@@ -26,3 +26,9 @@ export const updateProfile = (user: User): ApiObject => ({
     method: 'PUT',
     parameters: user
 })
+
+export const updatePassword = (password: string): ApiObject => ({
+    url: '/user/password',
+    method: 'PUT',
+    parameters: { password }
+})

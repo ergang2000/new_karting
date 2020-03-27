@@ -15,14 +15,13 @@
         methods: {
             submit() {
                 this.loading = true
-                this.user = {
+
+                this.$call(updateProfile({
                     ...this.user,
                     id: undefined,
                     activiteiten: undefined,
                     roles: undefined
-                }
-
-                this.$call(updateProfile(this.user))
+                }))
                     .then(res => {
                         this.$store.dispatch('newUser', res)
                             .then(() => {

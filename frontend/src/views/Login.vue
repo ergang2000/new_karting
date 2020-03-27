@@ -23,7 +23,14 @@
             submit(username, password) {
                 this.loading = true
                 this.$call(loginCall(username, password))
-                    .then(res => this.getUser(res.token))
+                    .then(res => {
+                        if (res.code && res.code === 401) {
+                            this.onError()
+                            return
+                        }
+
+                        this.getUser(res.token)
+                    })
                     .catch(() => this.onError())
             },
             getUser(token) {

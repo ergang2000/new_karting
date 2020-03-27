@@ -7,6 +7,7 @@ import Registreren from '../views/bezoeker/Registreren.vue'
 import AanbodDetails from '../views/bezoeker/AanbodDetails.vue'
 import UserActiviteiten from '../views/deelnemer/Activiteiten.vue'
 import Profile from '../views/deelnemer/Profile.vue'
+import Password from '../views/deelnemer/Password.vue'
 import Login from '../views/Login.vue'
 
 Vue.use(VueRouter)
@@ -51,6 +52,11 @@ const routes = [
         path: '/user/profiel',
         name: 'Profile',
         component: Profile
+    },
+    {
+        path: '/user/wachtwoord',
+        name: 'Password',
+        component: Password
     }
 ]
 
