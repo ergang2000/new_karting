@@ -32,6 +32,10 @@ export default new Vuex.Store({
         logout(context: any) {
             context.commit('removeUser')
             context.commit('removeToken')
+        },
+
+        newUser(context: any, user: User) {
+            context.commit('setUser', user)
         }
     },
     modules: {},

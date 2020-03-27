@@ -137,7 +137,7 @@
         </b-form-group>
         <b-form-row>
             <b-button type="submit" variant="primary" :disabled="loading">registreren</b-button>
-            <b-spinner v-if="loading" />
+            <b-spinner v-if="loading" variant="primary" />
         </b-form-row>
     </b-form>
 </template>

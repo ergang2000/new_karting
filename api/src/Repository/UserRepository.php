@@ -75,26 +75,29 @@ class UserRepository extends ServiceEntityRepository
 
     public function updateFromArray(User $user, array $attributes)
     {
-        try {
+//        try {
             $conn = $this->getEntityManager()->getConnection();
             $queryBuilder = $conn->createQueryBuilder();
 
-            $queryBuilder->update($user);
+            $queryBuilder->update('user');
 
             // the reason that we loop through the values twice and not insert the values directly
             // is because this way the values also gets serialized
             foreach ($attributes as $key => $value) {
-                $queryBuilder->setValue($key, ':'.$key);
+                $queryBuilder->set($key, ':'.$key);
             }
             foreach ($attributes as $key => $value) {
                 $queryBuilder->setParameter($key, $value);
-            }
+	        }
+
+            $queryBuilder->where('id', ':id');
+	        $queryBuilder->setParameter('id', $user->getId());
 
             $queryBuilder->execute();
 
             return true;
-        } catch (\Exception $e) {
-            return false;
-        }
+//        } catch (\Exception $e) {
+//            return false;
+//        }
     }
 }

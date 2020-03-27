@@ -21,3 +21,8 @@ export const getUser = (token?: string): ApiObject => ({
     } : undefined
 })
 
+export const updateProfile = (user: User): ApiObject => ({
+    url: '/user/profile',
+    method: 'PUT',
+    parameters: user
+})

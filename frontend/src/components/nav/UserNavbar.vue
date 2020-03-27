@@ -2,8 +2,8 @@
     <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
             <NavbarItem to="/user/activiteiten">home</NavbarItem>
-            <NavbarItem to="#">profiel</NavbarItem>
-            <NavbarItem to="#">wachtwoord</NavbarItem>
+            <NavbarItem to="/user/profiel">profiel</NavbarItem>
+            <NavbarItem to="/user/wachtwoord">wachtwoord</NavbarItem>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
             <NavbarItem @click="logout">{{ $store.state.user.username }} uitloggen</NavbarItem>

@@ -315,4 +315,32 @@ class User implements UserInterface, \Serializable
     {
         // TODO: Implement eraseCredentials() method.
     }
+
+    /**
+     * @param array $attributes
+     * @return $this
+     */
+    public function setFromArray(array $attributes): self
+    {
+        if (isset($attributes['username']))
+            $this->username = $attributes['username'];
+        if (isset($attributes['email']))
+            $this->email = $attributes['email'];
+        if (isset($attributes['voorletters']))
+            $this->voorletters = $attributes['voorletters'];
+        if (isset($attributes['achternaam']))
+            $this->achternaam = $attributes['achternaam'];
+        if (isset($attributes['tussenvoegsel']))
+            $this->tussenvoegsel = $attributes['tussenvoegsel'];
+        if (isset($attributes['adres']))
+            $this->adres = $attributes['adres'];
+        if (isset($attributes['postcode']))
+            $this->postcode = $attributes['postcode'];
+        if (isset($attributes['woonplaats']))
+            $this->woonplaats = $attributes['woonplaats'];
+        if (isset($attributes['telefoon']))
+            $this->telefoon = $attributes['telefoon'];
+
+        return $this;
+    }
 }

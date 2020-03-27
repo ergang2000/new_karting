@@ -91,8 +91,9 @@ class DeelnemerController extends AbstractController
     /**
      * @Route("/user/profiel", name="edit_profile")
      */
-    public function editProfile(UserInterface $user, Request $request)
+    public function editProfile(Request $request)
     {
+        $user = $this->getUser();
         $user->setPlainPassword('a');
         $form = $this->createForm(UserUpdateType::class, $user);
         $form->add('save', SubmitType::class, ['label' => 'wijzig']);

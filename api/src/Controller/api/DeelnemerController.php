@@ -90,9 +90,14 @@ class DeelnemerController extends AbstractFOSRestController
     public function updateProfile(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        $success = $this->getDoctrine()->getRepository('App:User')->updateFromArray($this->getUser(), $data);
+        $user = $this->getUser();
+        $user->setFromArray($data);
 
-        return $this->handleView($this->view(['success' => $success], 200));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        return $this->handleView($this->view($user, 200));
     }
 
     /**
